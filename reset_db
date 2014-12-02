@@ -1,0 +1,6 @@
+#!/bin/sh
+mysql -u root -psproull -e 'drop database VirtualBB;'
+mysql -u root -psproull -e 'create database VirtualBB;'
+rm -f snapshot/migrations/0*
+python manage.py makemigrations
+python manage.py migrate
