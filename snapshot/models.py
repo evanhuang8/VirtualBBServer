@@ -43,7 +43,7 @@ class AccessToken(models.Model):
   created_at = models.DateTimeField(auto_now_add = True)
 
   def save(self, *args, **kwargs):
-    if self.token is None:
+    if self.token is None or len(self.token) == 0:
       self.token = hashlib.sha1(os.urandom(128)).hexdigest()[:128]
     super(AccessToken, self).save(*args, **kwargs)
     return
