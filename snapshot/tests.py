@@ -24,6 +24,17 @@ class UserTestCase(TestCase):
     self.assertTrue(content.has_key('token'))
     return
 
+  def test_facebook_login(self):
+    client = Client()
+    response = client.get('/fblogin/', {
+      'fbid': '827111174012784',
+    })
+    self.assertEqual(response.status_code, 200)
+    content = json.loads(response.content)
+    self.assertEqual(content['status'], 'OK')
+    self.assertTrue(content.has_key('token'))
+    return
+
 class SnapShotTestCase(TestCase):
 
   def setUp(self):

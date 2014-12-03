@@ -5,8 +5,12 @@ from passlib.hash import bcrypt
 
 class User(models.Model):
 
-  email = models.CharField(max_length = 100, unique = True)
-  password = models.CharField(max_length = 60)
+  email = models.CharField(max_length = 100, 
+                           unique = True, 
+                           null = True, 
+                           default = None)
+  password = models.CharField(max_length = 60, null = True, default = None)
+  fbid = models.CharField(max_length = 255, null = True, default = None)
   created_at = models.DateTimeField(auto_now_add = True)
 
   # A copy of the user's original password
@@ -25,7 +29,8 @@ class User(models.Model):
     """
     Overrides save method to rehash password if necessary
     """
-    self.email = self.email.lower()
+    if self.email is not None:
+      self.email = self.email.lower()
     if ((self.pk is None or self.password != self.__original_password) and 
         self.password is not None):
       self.password = bcrypt.encrypt(self.password, rounds = 10)

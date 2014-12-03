@@ -47,6 +47,17 @@ def login(request):
   }
   return JsonResponse(response)
 
+def fblogin(request):
+  fbid = request.REQUEST.get('fbid', None)
+  user, created = User.objects.get_or_create(fbid = fbid)
+  token = AccessToken(user = user)
+  token.save()
+  response = {
+    'status': 'OK', 
+    'token': token.token
+  }
+  return JsonResponse(response)
+
 def register(request):
   email = request.REQUEST.get('email', None)
   password = request.REQUEST.get('password', None)
