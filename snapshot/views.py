@@ -93,7 +93,7 @@ def create(request, user):
   image = request.FILES.get('image', None)
   if image is None:
     return HttpResponseBadRequest()
-  caption = request.FILES.get('caption', '')
+  caption = request.REQUEST.get('caption', '')
   snapshot = SnapShot(tag = tag, image = image, caption = caption, created_by = user)
   snapshot.save()
   response = {
