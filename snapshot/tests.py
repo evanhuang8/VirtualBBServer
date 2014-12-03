@@ -45,7 +45,7 @@ class SnapShotTestCase(TestCase):
     with open('snapshot/tests/blackboard.jpg', 'r') as image:
       response = client.post('/create/', {
         'token': self.token,
-        'tag': self.tag.id,
+        'tag': self.tag.uid,
         'image': image,
         'caption': 'Einstein\'s board'
       })
@@ -56,7 +56,7 @@ class SnapShotTestCase(TestCase):
     with open('snapshot/tests/blackboard.jpg', 'r') as image:
       response = client.post('/create/', {
         'token': self.token,
-        'tag': self.tag.id,
+        'tag': self.tag.uid,
         'image': image,
         'caption': 'Newton\'s board'
       })
@@ -65,7 +65,7 @@ class SnapShotTestCase(TestCase):
     self.assertEqual(content['status'], 'OK')
     response = self.client.get('/list/', {
       'token': self.token,
-      'tag': self.tag.id
+      'tag': self.tag.uid
     })
     self.assertEqual(response.status_code, 200)
     content = json.loads(response.content)

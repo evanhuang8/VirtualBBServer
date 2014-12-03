@@ -76,7 +76,7 @@ def register(request):
 def create(request, user):
   tag = request.REQUEST.get('tag', None)
   try:
-    tag = Tag.objects.get(id = tag)
+    tag = Tag.objects.get(uid = tag)
   except ObjectDoesNotExist:
     raise Http404
   image = request.FILES.get('image', None)
@@ -94,7 +94,7 @@ def create(request, user):
 def list(request, user):
   tag = request.REQUEST.get('tag', None)
   try:
-    tag = Tag.objects.get(id = tag)
+    tag = Tag.objects.get(uid = tag)
   except ObjectDoesNotExist:
     raise Http404
   snapshots = SnapShot.objects.filter(tag = tag)
